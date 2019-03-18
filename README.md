@@ -1,11 +1,12 @@
 # swapfile-hibernate #
-Hibernate with swapfile without programs. Hibernar com swapfile sem programas adicionais.
+Hibernar com swapfile sem programas adicionais.
+Hibernate with swapfile without programs. 
 
-- **Crie e monte o swapfile. Create and mount swapfile**
-- sudo fallocate -l 3G /swapfile
-- sudo chmod 0600 /swapfile
-- sudo mkswap /swapfile
-- sudo swapon /swapfile
+### Crie e monte o swapfile. Create and mount swapfile ### 
+    sudo fallocate -l 3G /swapfile
+    sudo chmod 0600 /swapfile
+    sudo mkswap /swapfile
+    sudo swapon /swapfile
 
 ### Descubra o dispositivo que foi criado. UUID device of the swapfile ###
 
@@ -24,24 +25,18 @@ Hibernate with swapfile without programs. Hibernar com swapfile sem programas ad
 
     sudo filefrag -v /swapfile | grep "0:        0.."
 
-### Em GRUB_CMDLINE_LINUX_DEFAULT= no arquivo /etc/default/grub
+### Em GRUB_CMDLINE_LINUX_DEFAULT= no arquivo /etc/default/grub ###
+### inlua resume e resume_offset. Include resume_offset and resume ###
 #
-> inlua resume e resume_offset. Include resume_offset and resume
+##### use o UUID (recomendado) #####
+    resume=UUID="seu UUID" resume_offset="seu offset"
 #
-> use o UUID (recomendado)
+### Em "HOOKS" no arquivo /etc/mkinitcpio.conf ###
+### logo após filesystems, inclua resume. Beffore filesystems. ###
 #
-> resume=UUID="seu UUID" resume_offset="seu offset"
+    .. filesystems resume ..
 #
+### Finalize rodando os comandos. Run commands ###
 #
-> Em "HOOKS" no arquivo /etc/mkinitcpio.conf 
-#
-> logo após filesystems, inclua resume. Beffore filesystems.
-#
-> .. filesystems resume ..
-#
-#
-> Finalize rodando os comandos. Run commands
-#
-> sudo mkinitcpio -p linux
-#
-> sudo grub-mkconfig -o /boot/grub/grub.cfg
+    sudo mkinitcpio -p linux
+    sudo grub-mkconfig -o /boot/grub/grub.cfg
