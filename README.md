@@ -26,13 +26,12 @@ Hibernate with swapfile without programs.
     sudo filefrag -v /swapfile | grep "0:        0.."
 
 ### Em GRUB_CMDLINE_LINUX_DEFAULT= no arquivo /etc/default/grub ###
-### inlua resume e resume_offset. Include resume_offset and resume ###
-#
-##### use o UUID (recomendado) #####
+###### inlua resume e resume_offset. Include resume_offset and resume ######
+###### use o UUID (recomendado). UUID recommended ########
     resume=UUID="seu UUID" resume_offset="seu offset"
 #
 ### Em "HOOKS" no arquivo /etc/mkinitcpio.conf ###
-### logo após filesystems, inclua resume. Beffore filesystems. ###
+###### logo após filesystems, inclua resume. Beffore filesystems. ######
 #
     .. filesystems resume ..
 #
